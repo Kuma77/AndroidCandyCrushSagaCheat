@@ -12,13 +12,19 @@ public class Main {
         }
         filePath = args[0];
 
-        CandyApp app = new CandyApp(filePath);
+        try {
+            CandyApp app = new CandyApp(filePath);
 
-        app.decompile();
+            app.decompile();
+            app.makeLevelChanges();
+            app.compile();
+            app.sign();
 
-        app.makeLevelChanges();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
 
-        app.compile();
+
 
     }
 

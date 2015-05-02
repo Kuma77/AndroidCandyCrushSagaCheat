@@ -10,6 +10,7 @@ import java.util.concurrent.Executors;
  * Created by mike on 5/2/2015.
  */
 public class CandyApp {
+    final static String LINE_SEPARATOR = "================================================================";
     final static String RESOURCES_PATH =
             "C:\\Users\\mike\\IdeaProjects\\CandyCrushLevelModifiy\\src\\main\\resources\\";
     final static String APKTOOL_PATH = RESOURCES_PATH + "apktool_2.0.0rc4.jar";
@@ -93,7 +94,19 @@ public class CandyApp {
 
         } catch (IOException e) {
             e.printStackTrace();
+            while ( (line = stderrData.readLine()) != null)
+                System.out.println(line);
+
+            int processResult = process.waitFor();
+            if(processResult == 0)
+                System.out.println("Processing OK.");
+            else
+                System.out.println("Error while processing");
+
+        } catch (Exception e) {
+            //e.printStackTrace();
         }
+        System.out.println(LINE_SEPARATOR);
     }
 
     public void decompile() {

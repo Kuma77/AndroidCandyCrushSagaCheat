@@ -73,28 +73,54 @@ public class CandyApp {
         System.out.println("Modified " + modifiedFiles + " files/levels!");
     }
 
-    private void exec(String option, String inputOption, String outputOption) {
-        ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar",
-                RESOURCES_PATH + "apktool_2.0.0rc4.jar",
-                option, inputOption, "-o", outputOption);
+    private void exec(String [] processArguments) {
+        ProcessBuilder processBuilder = new ProcessBuilder(processArguments);
         try {
-            Process pApkTool = processBuilder.start();
+            Process process = processBuilder.start();
             try {
-                pApkTool.waitFor();
+                process.waitFor();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            InputStreamReader isr = new InputStreamReader(process.getErrorStream());
+            BufferedReader br = new BufferedReader(isr);
+            String line = null;
+            System.out.println("<ERROR>");
+            while ( (line = br.readLine()) != null)
+                System.out.println(line);
+            System.out.println("</ERROR>");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void decompile() {
-        exec("d", filePath + apkName, filePath + OUTPUT_FOLDER);
+        test()
+        String[] decompileArgs = {
+                "java",
+                "-jar",
+                RESOURCES_PATH + "apktool_2.0.0rc4.jar",
+                "d",
+                filePath + apkName,
+                "-o",
+                OUTPUT_FOLDER
+        };
+
+        exec(decompileArgs);
     }
 
     public void compile() {
-        exec("b", filePath + OUTPUT_FOLDER, MODDED_APK_PATH);
+        String[] compileArgs = {
+            "java",
+            "-jar",
+            RESOURCES_PATH + "apktool_2.0.0rc4.jar",
+            "b",
+            filePath + OUTPUT_FOLDER,
+            "-o",
+            MODDED_APK_PATH
+        };
+        exec(compileArgs);
     }
 
     public void sign() {
@@ -102,7 +128,7 @@ public class CandyApp {
         System.setProperty("user.dir", filePath);
         System.out.println(System.getProperty("user.dir"));
 
-        String [] args = {
+        String [] signArgs = {
             "java", "-jar",
             RESOURCES_PATH + "signapk.jar",
             "-w",
@@ -111,23 +137,7 @@ public class CandyApp {
             MODDED_APK_PATH,
             SIGNED_APK_PATH
         };
-
-        ProcessBuilder processBuilder = new ProcessBuilder(args);
-        try {
-            Process apkSign = processBuilder.start();
-
-            InputStreamReader isr = new InputStreamReader(apkSign.getErrorStream());
-            BufferedReader br = new BufferedReader(isr);
-            String line = null;
-            System.out.println("<ERROR>");
-            while ( (line = br.readLine()) != null)
-                System.out.println(line);
-            System.out.println("</ERROR>");
-            int exitVal = apkSign.waitFor();
-            apkSign.getOutputStream();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        exec(signArgs);
     }
 
     public void makeLevelChanges() {

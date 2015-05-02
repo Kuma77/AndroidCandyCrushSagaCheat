@@ -12,6 +12,7 @@ import java.util.concurrent.Executors;
 public class CandyApp {
     final static String RESOURCES_PATH =
             "C:\\Users\\mike\\IdeaProjects\\CandyCrushLevelModifiy\\src\\main\\resources\\";
+    final static String APKTOOL_PATH = RESOURCES_PATH + "apktool_2.0.0rc4.jar";
     static String ASSETS_RES_PATH = "\\assets\\res_output\\";
     static String LEVELS_PATH = "levels";
     static String outputFileName = "output_app.apk";
@@ -101,7 +102,7 @@ public class CandyApp {
         String[] decompileArgs = {
                 "java",
                 "-jar",
-                RESOURCES_PATH + "apktool_2.0.0rc4.jar",
+                APKTOOL_PATH,
                 "d",
                 filePath + apkName,
                 "-o",
@@ -117,7 +118,7 @@ public class CandyApp {
         String[] compileArgs = {
             "java",
             "-jar",
-            RESOURCES_PATH + "apktool_2.0.0rc4.jar",
+            APKTOOL_PATH,
             "b",
             filePath + OUTPUT_FOLDER,
             "-o",

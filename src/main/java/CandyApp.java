@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -79,21 +76,17 @@ public class CandyApp {
         ProcessBuilder processBuilder = new ProcessBuilder(processArguments);
         try {
             Process process = processBuilder.start();
-            try {
-                process.waitFor();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            InputStreamReader isr = new InputStreamReader(process.getErrorStream());
-            BufferedReader br = new BufferedReader(isr);
-            String line = null;
-            System.out.println("<ERROR>");
-            while ( (line = br.readLine()) != null)
-                System.out.println(line);
-            System.out.println("</ERROR>");
+            InputStreamReader stderr = new InputStreamReader(process.getErrorStream());
+            InputStream stdout = process.getInputStream ();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            BufferedReader stdoutData = new BufferedReader (new InputStreamReader(stdout));
+            BufferedReader stderrData = new BufferedReader(stderr);
+
+            String line = null;
+
+            while ( (line = stdoutData.readLine()) != null)
+                System.out.println(line);
+
             while ( (line = stderrData.readLine()) != null)
                 System.out.println(line);
 

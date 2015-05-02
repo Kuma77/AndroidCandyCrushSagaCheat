@@ -11,7 +11,7 @@ jar {
 }
 
 run {
-    args "C:\\APK-Multi-Tool-Stable-RELEASE\\projects\\com.king.candycrushsaga-1\\assets\\res_output\\levels"
+    args "C:\\APK-Multi-Tool-Stable-RELEASE\\projects\\com.king.candycrushsaga-52fd22cc15a231d30741aa5d24fe0426.apk"
 }
 
 repositories {

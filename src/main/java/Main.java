@@ -7,7 +7,7 @@ public class Main {
         final String filePath;
 
         if(args.length == 0) {
-            System.out.println("Please privde the res_output directory path!");
+            System.out.println("Please privde an apk file name!");
             return;
         }
         filePath = args[0];
@@ -23,8 +23,6 @@ public class Main {
         } catch(Exception ex) {
             ex.printStackTrace();
         }
-
-
 
     }
 

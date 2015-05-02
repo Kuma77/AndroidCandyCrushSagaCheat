@@ -25,7 +25,7 @@ public class CandyApp {
     String filePath;
 
     private void modifyProperties() {
-        PropSettings prop = new PropSettings(filePath);
+        PropSettings prop = new PropSettings(OUTPUT_FOLDER + ASSETS_RES_PATH);
         prop.ModifyStoredLives();
         prop.Write();
     }
@@ -35,13 +35,13 @@ public class CandyApp {
         apkName = file.getName();
         String absolutePath = file.getAbsolutePath();
         filePath = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator)) + "\\";
-        OUTPUT_FOLDER = apkName.substring(0, apkName.lastIndexOf("."));
+        OUTPUT_FOLDER = filePath + apkName.substring(0, apkName.lastIndexOf("."));
         MODDED_APK_PATH = filePath + "moded_app.apk";
         SIGNED_APK_PATH = filePath + "signed_moded_app.apk";
     }
 
     private void modifyLevels() {
-        File folder = new File(filePath + OUTPUT_FOLDER + ASSETS_RES_PATH + LEVELS_PATH);
+        File folder = new File(OUTPUT_FOLDER + ASSETS_RES_PATH + LEVELS_PATH);
         final File[] dirFiles = folder.listFiles();
 
         int nThreads = Runtime.getRuntime().availableProcessors();
@@ -120,7 +120,7 @@ public class CandyApp {
             "-jar",
             APKTOOL_PATH,
             "b",
-            filePath + OUTPUT_FOLDER,
+            OUTPUT_FOLDER,
             "-o",
             MODDED_APK_PATH
         };

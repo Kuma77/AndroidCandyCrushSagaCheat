@@ -96,7 +96,8 @@ public class CandyApp {
     }
 
     public void decompile() {
-        test()
+        System.out.println("Decompiling APK please wait ....");
+
         String[] decompileArgs = {
                 "java",
                 "-jar",
@@ -111,6 +112,8 @@ public class CandyApp {
     }
 
     public void compile() {
+        System.out.println("Compiling APK please wait ....");
+
         String[] compileArgs = {
             "java",
             "-jar",
@@ -124,9 +127,7 @@ public class CandyApp {
     }
 
     public void sign() {
-        System.out.println(System.getProperty("user.dir"));
-        System.setProperty("user.dir", filePath);
-        System.out.println(System.getProperty("user.dir"));
+        System.out.println("Signing APK please wait ....");
 
         String [] signArgs = {
             "java", "-jar",

@@ -7,6 +7,7 @@ public class ModifyLevel {
         JsonLevel jlevel = new JsonLevel(jsonData);
         jlevel.modifyNoMoves();
         jlevel.modifyTimeLimit();
+        jlevel.modifyExplosionTimer();
         jlevel.writeJSON(filePath);
     }
 }
